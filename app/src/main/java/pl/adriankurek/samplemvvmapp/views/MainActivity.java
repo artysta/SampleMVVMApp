@@ -32,22 +32,12 @@ public class MainActivity extends AppCompatActivity {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         userViewModel.init();
 
-        userViewModel.getUsers().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                adapter.notifyDataSetChanged();
-            }
-        });
+        userViewModel.getUsers().observe(this, u -> adapter.notifyDataSetChanged());
 
         initListView();
 
         button = findViewById(R.id.btn_add);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userViewModel.addUser(User.getRandomUser());
-            }
-        });
+        button.setOnClickListener(v -> userViewModel.addUser(User.getRandomUser()));
     }
 
     private void initListView() {
